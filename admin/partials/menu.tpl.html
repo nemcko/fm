@@ -1,0 +1,41 @@
+<div class="row">
+	<div class="col-md-2">
+		<div data-ng-include="'partials/menucfg.tpl.html'"></div>
+	</div>
+	<div class="col-md-10">
+		<h2>Menu <small> <span ng-hide="item.id">nové</span></small></h2>
+		<form class="form-horizontal"  role="form-inline" name="myForm">
+			<div class="form-group" data-ng-class="{'has-error': myForm.shname.$error.required}">
+				<label for="shname" class="col-sm-2 control-label">Kód</label>
+				<div class="col-sm-3" data-ng-class="{error: myForm.shname.$invalid && !myForm.shname.$pristine}">
+					<input type="text" class="form-control" id="shname" name="shname" data-ng-model="item.shname" required 
+					placeholder="skrátený názov" />
+					<span data-ng-show="myForm.shname.$error.required && !myForm.shname.$pristine" class="help-inline">
+					Je potrebné vyplniť</span>
+				</div>
+			</div>
+			<div class="form-group" data-ng-class="{'has-error': myForm.lgname.$error.required}">
+				<label for="lgname" class="col-sm-2 control-label">Názov</label>
+				<div class="col-sm-8" data-ng-class="{error: myForm.lgname.$invalid && !myForm.lgname.$pristine}">
+					<input type="text" class="form-control" id="lgname" name="lgname" data-ng-model="item.lgname" required 
+					placeholder="úplný názov" />
+					<span data-ng-show="myForm.lgname.$error.required && !myForm.lgname.$pristine" class="help-inline">
+					Je potrebné vyplniť</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="file" class="col-sm-2 control-label">Obrázok</label>
+				<div class="col-sm-5">
+					<img ng-src="../api/index.php/picture/{{item.idmedia}}/normal" alt="foto">
+					<input type="file" onchange="angular.element(this).scope().setFile(this)" />
+					<input type="hidden" id="idmedia" name="idmedia" ng-model="item.idmedia">
+				</div>
+			</div>
+
+			<hr/>
+			<button ng-click="cancelUpdate()" class="btn btn-default">Návrat</button>
+			<button ng-click="save();" ng-disabled="myForm.$invalid" class="btn btn-primary">Uložiť</button>
+			<button ng-click="destroy()" ng-show="item.id" class="btn btn-danger">Vymazať</button>
+		</form>		
+	</div>
+</div>

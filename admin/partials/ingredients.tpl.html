@@ -1,0 +1,26 @@
+<div class="row">
+	<div class="col-md-2">
+		<div data-ng-include="'partials/menucfg.tpl.html'"></div>
+	</div>
+	<div class="col-md-10">
+		<h1>Ingrediencie</h1>
+		<table class="table" ng-init="predicate='shname'; reverse=false">
+			<thead>
+				<tr>
+					<th><a href="" ng-click="predicate='shname'; reverse=!reverse">Skratka</a></th>
+					<th><a href="" ng-click="predicate='lgname'; reverse=!reverse">Názov</a></th>
+					<th><a href="#/nastavenia/ingrediencia"><i class="glyphicon glyphicon-plus"></i></a></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in items | filter:search |  orderBy:predicate:reverse">
+					<td>{{item.shname}}</td>
+					<td>{{item.lgname}}</td>
+					<td>
+						<a ng-href="#/nastavenia/ingrediencia/{{item.id}}"><i class="glyphicon glyphicon-pencil"></i></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>		
+	</div>
+</div>

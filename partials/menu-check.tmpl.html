@@ -1,0 +1,24 @@
+<a class="md-button-toggle"
+	ng-click="toggle()"
+	aria-controls="docs-menu-{{section.menuitem | nospace}}"
+	flex layout="row"
+	aria-expanded="{{isOpen()}}">
+	<div class="inset" ng-if="section.icon">
+		<ng-md-icon class="menuicon" icon="{{section.icon}}"></ng-md-icon>
+	</div>
+	<div class="inset">
+		{{section.name}}
+	</div>
+	<span aria-hidden="true" class="md-toggle-icon"
+		ng-class="{'toggled' : isOpen()}"></span>
+</a>
+
+<div ng-show="isOpen()" id="menu-{{section.menuitem}}" class="menu-toggle-list">
+	<div flex ng-repeat="rb in section.dataitems">
+		<md-checkbox class="md-primary menu-check" ng-checked="exists(rb, '{{section.menuitem}}', selvalue)" ng-click="xtoggle(rb, section.menuitem)">
+			{{ rb.label}}
+		</md-checkbox>
+	</div>
+<!-- <code style="display: block; padding: 8px;">{{ingredients | json}}</code> -->
+	<br/>
+</div>

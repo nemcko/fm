@@ -1,0 +1,52 @@
+<div ng-switch="section.type">	
+	<div ng-switch-when="subheader">
+		<md-subheader class="active">{{section.name}}</md-subheader>
+	</div>
+	
+	<div ng-switch-when="xxxradio">
+		<md-radio class="active">{{section.name}}</md-radio>
+	</div>
+	
+	<div ng-switch-when="xxxradio">
+		<div flex layout="row" layout="row" layout-align="start center">
+			<md-radio-button value="section.name">xxxx{{section.name}}</md-radio-button>
+		</div>
+	</div>
+
+	<div ng-switch-when="xxxoption">
+		<md-button ng-class="{'active' : isSelected()}"
+			ng-href="#{{section.url}}" ng-click="focusSection()">
+			<div flex layout="row" layout="row" layout-align="start center">
+				<div class="inset" ng-if="section.icon">
+					<ng-md-icon class="menuicon" ng-if="section.icon" icon="{{section.icon}}"></ng-md-icon>
+				</div>
+				<div class="inset" ng-if="section.image">
+					<img icon class="menuimage" ng-src="{{section.image}}" alt="picture">
+				</div>
+		
+				<div class="inset">
+					{{section.name}}
+				</div>
+			</div>
+		</md-button>
+	</div>
+
+	<div ng-switch-default>
+		<md-button ng-class="{'active' : isSelected()}"
+			ng-href="#{{section.url}}" ng-click="focusSection()">
+			<div flex layout="row" layout="row" layout-align="start center">
+				<div class="inset" ng-if="section.icon">
+					<ng-md-icon class="menuicon" ng-if="section.icon" icon="{{section.icon}}"></ng-md-icon>
+				</div>
+				<div class="inset" ng-if="section.image">
+					<img icon class="menuimage" ng-src="{{section.image}}" alt="picture">
+				</div>
+		
+				<div class="inset">
+					{{section.name}}
+				</div>
+			</div>
+		</md-button>
+	</div>
+</div>
+

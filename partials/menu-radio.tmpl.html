@@ -1,0 +1,25 @@
+<a class="md-button-toggle"
+	ng-click="toggle()"
+	aria-controls="docs-menu-{{section.menuitem | nospace}}"
+	flex layout="row"
+	aria-expanded="{{isOpen()}}">
+	<div class="inset" ng-if="section.icon">
+		<ng-md-icon class="menuicon" icon="{{section.icon}}"></ng-md-icon>
+	</div>
+	<div class="inset">
+		{{section.name}}
+	</div>
+	<span aria-hidden="true" class="md-toggle-icon"
+		ng-class="{'toggled' : isOpen()}"></span>
+</a>
+
+<div ng-show="isOpen()" id="menu-{{section.menuitem}}" class="menu-toggle-list">
+	<md-radio-group ng-model="section.value" class="md-primary">
+		<md-radio-button section="dataitems" class="menu-radio" ng-value="rb.value" 
+			ng-repeat="rb in section.dataitems">
+			{{ rb.label}}
+		</md-radio-button>
+	</md-radio-group>
+<!-- <code style="display: block; padding: 8px;">{{section.value | json}}</code> -->
+	<br/>
+</div>

@@ -1,0 +1,72 @@
+<div id="page-detail" ng-if="$parent.detailDisplayed">
+		<img id="page-detail-picture" ng-src="{{item.img_detail}}" alt="Detail"))>
+		
+		<div class="main-fab">
+			<md-button class="md-fab md-accent" aria-label="Zatvoriť"
+				ng-click="showDetail()" style="top:-30px;">
+				<ng-md-icon icon="close"></ng-md-icon>
+			</md-button>
+		</div>
+	
+		<div id="page-section" class="inset">
+				<br/>
+				<div class="md-title">{{item.txt}}</div>
+				<br/>
+				<div class="md-subhead muted" layout="row" layout-sm="column" layout-align-gt-sm="start end">
+					<div class="md-subhead" flex="20">Ingrediencie:</div>
+					<div>
+						<span ng-repeat="ingredient in item.ingredients" repeat-delimiter=",">{{ ingredient.lgname }}</span>
+					</div>
+				</div>
+				<br/>
+				<div class="muted" layout="row" layout-sm="column" layout-align-gt-sm="start start">
+					<div class="md-subhead" flex="20">Alergény:</div>
+					<div>
+<!-- 						<span ng-repeat="allergen in item.allergens" repeat-delimiter=","> -->
+<!-- 						{{ allergen.shname }} -->
+<!-- 						</span> -->
+						<div ng-repeat="allergen in item.allergens">
+						{{ allergen.lgname }}
+						</div>
+
+					</div>
+				</div>
+
+				<h4 xstyle="text-align:right"layout="row" layout-sm="column" layout-align="end end">
+					<div ng-repeat="itm in item.servings">
+						<span>{{itm.lgname}}</span>
+						<big class="md-display-3">{{itm.price | mena}}&nbsp;&nbsp;</big>
+					</div>
+				</h4>
+		</div>
+</div>
+
+<div id="page-tiles" class="bkg" xxxng-show="!$parent.detailDisplayed">
+	<md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-lg="3" md-cols-gt-lg="4" md-gutter="4px" 
+		md-row-height="4:3" >
+		<md-grid-tile class="ftile" ng-class="getImgClass($index)" ng-repeat="item in items | selectitems" class="chooseditem" ng-click="animateDetail(item)">
+			<div class="price">
+				<span ng-repeat="itm in ::item.servings">
+					<span ng-show="$last">
+						<span ng-show="::item.servings.length>1"><small>od </small></span>
+						<big>{{::itm.price | mena}}</big>
+					</span>
+				</span>
+			</div>
+			<img class="tileimg" ng-src="api/index.php/picture/{{::item.idmedia}}/normal" alt="obrazok">
+			
+			<md-grid-tile-footer class="tilefooter">
+				<h3>
+					<big>
+						<span class="menucode">{{::item.code}}</span>
+						{{::item.lgname}}
+					</big>
+				</h3>
+			</md-grid-tile-footer>
+		</md-grid-tile>		
+	</md-grid-list>	
+<!-- <code style="display: block; padding: 8px;">{{items | json}}</code> -->
+</div>
+
+
+<!-- 	<div ng-class="clsTest" id="xxxbg" ng-click="test(item)" style="height:150px;border:1px solid red;background-color: silver;">&nbsp;{{clsTest}}&nbsp;</div> -->

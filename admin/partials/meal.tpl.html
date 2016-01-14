@@ -1,0 +1,62 @@
+<div class="container">
+	<form class="form-horizontal"  role="form-inline" name="myForm">
+	<div class="row">
+		<h1>Jedlo <small data-ng-hide="item.id">(nové)</small></h1>
+	</div>
+
+	<div class="row">
+			<div class="form-group">
+				<div class="col-sm-2">
+					<label for="code" class="control-label">Kód</label>
+					<input type="text" class="form-control" id="code" name="code" ng-model="item.code" required
+					placeholder="kód jedla">
+					<span ng-show="myForm.code.$error.required && !myForm.code.$pristine" class="text-danger">
+					Je potrebné vyplniť</span>
+				</div>
+
+				<div class="col-sm-3">
+					<label for="shname" class="control-label">Skratka</label>
+					<input type="text" class="form-control" id="shname" name="shname" ng-model="item.shname" required
+					placeholder="skrátený názov">
+					<span ng-show="myForm.shname.$error.required && !myForm.shname.$pristine" class="text-danger">
+					Je potrebné vyplniť</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-12">
+					<label for="lgname" class="control-label">Názov</label>
+					<input type="text" class="form-control" id="lgname" name="lgname" ng-model="item.lgname" required
+					placeholder="úplný názov">
+					<span ng-show="myForm.lgname.$error.required && !myForm.lgname.$pristine" class="text-danger">
+					Je potrebné vyplniť</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-12">
+					<label class="control-label">Popis</label>
+					<textarea class="form-control" rows="4" id="txt" name="txt" ng-model="item.txt"></textarea>
+				</div>
+			</div>
+	</div>
+
+
+	<div class="row">
+		<div class="form-group col-sm-12">
+			<label class="control-label">Obrázok</label>
+			<div>
+				<img ng-src="../api/index.php/picture/{{item.idmedia}}/large" alt="foto">
+<!-- 					<object data="../api/index.php/picture/{{item.idmedia}}/svg" type="image/svg+xml"></object> -->
+				<input type="file" onchange="angular.element(this).scope().setFile(this)" />
+				<input type="hidden" id="idmedia" name="idmedia" ng-model="item.idmedia">
+			</div>
+		</div>
+	</div>
+	
+	<hr/>		
+	
+	<button data-ng-click="cancelUpdate()" class="btn btn-default">Návrat</button>
+	<button data-ng-click="save()" data-ng-disabled="myForm.$invalid" class="btn btn-primary">Uložiť</button>
+	<button data-ng-click="destroy()" data-ng-show="item.id" class="btn btn-danger">Vymazať</button>
+
+	</form>
+</div>

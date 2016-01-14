@@ -1,0 +1,114 @@
+<div class="container">
+<div class="row">
+<h1>
+
+	<div class="col-xs-5">
+	Jedlá<small> zoznam jedál</small>
+	</div>
+	<div class="input-group col-xs-6">
+		<span class="input-group-addon"><i class="glyphicon glyphicon-menu-hamburger"></i></span>
+		<select class="form-control input-sm" ng-options="o.id as o.lgname for o in categories" ng-model="selcategory">
+		</select>
+		<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+		<input type="text" class="form-control input-sm" data-ng-model="search" class="search-query" placeholder="Vyhľadať...">
+		<a href="#/jedlo" class="btn-primary input-group-addon" tooltip="Nové jedlo"><i class="glyphicon glyphicon-plus"></i></a>
+	</div>
+</h1>
+
+</div>
+
+<table class="table" data-ng-init="predicate='code'; reverse=false">
+<tbody>
+	<tr data-ng-repeat="item in items | filter:search |  orderBy:predicate:reverse">
+			<td class="col-md-1">
+				<img ng-src="../api/index.php/picture/{{item.idmedia}}/medium" alt="picture">
+			</td>
+			<td>
+				<div class="btn-group pull-right" role="group" aria-label="Operácie">
+					<a ng-href="#/jedlo/{{item.id}}" class="btn btn-default" tooltip="Texty"><i class="glyphicon glyphicon-pencil"></i></a>
+					<button ng-click="openPortionDlg(item)" class="btn btn-default" tooltip="Porcie a množstvá"><i class="glyphicon glyphicon-scale"></i></button>
+					<button ng-click="openIngredientDlg(item)" class="btn btn-default" tooltip="Ingrediencie"><i class="glyphicon glyphicon-grain"></i></button>	
+					<button ng-click="openCategoryDlg(item)" class="btn btn-default" tooltip="Kategórie"><i class="glyphicon glyphicon-folder-open"></i></button>
+					<button ng-click="openAllergenDlg(item)" class="btn btn-default" tooltip="Alergény"><i class="glyphicon glyphicon-exclamation-sign"></i></button>
+					<button ng-click="deleteMeal(item)" class="btn btn-default" tooltip="Kategórie"><i class="glyphicon glyphicon-remove"></i></button>
+				</div>
+				<h4>
+					<div>{{item.lgname}} ({{item.code}})</div>
+				</h4>
+				{{item.txt}}<br/>
+
+
+				<div class="app-attr"><i>Množstvo:</i>&nbsp;
+				<span class="badge" ng-repeat="itm in item.servings">{{ itm.shname }}</span>
+				</div>
+
+				<div class="app-attr"><i>Ingrediencie:</i>&nbsp;
+				<span class="badge" ng-repeat="itm in item.ingredients">{{ itm.shname }}</span>
+				</div>
+
+				<div class="app-attr"><i>Kategórie:</i>&nbsp;
+				<span class="badge" ng-repeat="itm in item.category">{{ itm.shname }}</span>
+				</div>
+
+				<br/>
+				<div class="app-attr"><i>Alergény:</i>&nbsp;
+				<span class="badge" ng-repeat="itm in item.allergens">{{ itm.shname }}</span>
+				</div>
+				
+
+			</td>
+		</td>
+	</tr>
+</tbody>
+</table>
+</div>
+
+<script type="text/ng-template" id="SelectItemsDlg.html">
+	<div class="modal-header">
+		<big>{{title}}</big><br/>
+		<small>Kliknutím označte/odznačte príslušnú položku</small>
+	</div>
+	<div class="modal-body">
+		<button type="button" class="btn app-btn" ng-class="getClass(selitems,item)"
+			ng-repeat="item in items | orderBy: 'lgname'" ng-click="selItem(item.id)">{{ item.lgname }}
+		</button>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-default" ng-click="cancel()">Zatvoriť</button>
+	</div>
+</script>
+
+<script type="text/ng-template" id="SelectListDlg.html">
+	<div class="modal-header">
+		<big>{{title}}</big><br/>
+		<small>Kliknutím označte/odznačte príslušnú položku</small>
+	</div>
+	<div class="modal-body">
+		<button class="btn btn-block" ng-class="getClass(selitems,item)"
+			ng-repeat="item in items | orderBy: 'lgname'"
+			ng-click="selItem(item.id)">{{ item.lgname }}
+		</button>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-default" ng-click="cancel()">Zatvoriť</button>
+	</div>
+</script>
+
+<script type="text/ng-template" id="SelectList1Dlg.html">
+	<div class="modal-header">
+		<big>{{title}}</big><br/>
+		<small>Kliknutím označte/odznačte príslušnú položku</small>
+	</div>
+	<div class="modal-body">
+		<button ng-repeat="item in items | orderBy: 'shname'" class="btn btn-block" style="text-align: left;" ng-class="getClass(selitems,item)"
+			ng-click="selItem(item.id)">
+			<span class="badge">{{ item.shname }}</span>
+			{{ item.lgname }}
+		</button>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-default" ng-click="cancel()">Zatvoriť</button>
+	</div>
+</script>
+
+</div>

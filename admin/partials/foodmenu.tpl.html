@@ -1,0 +1,102 @@
+<div class="container">
+<div class="row">
+<h1>
+	<div class="col-xs-8">
+		<span class="pull-left">Ponuka jedál &nbsp;</span>
+		<small>
+			<input type="text" class="col-md-3"  
+				datepicker-popup="dd.MM.yyyy" data-date-format="yyyy-mm-dd"
+				ng-focus="openedCalendars['seldate']=true;openCalendar('seldate',$event)" 
+				is-open="openedCalendars['seldate']" show-weeks="false" datepicker-options="$root.dateOptions" 
+				class="form-control" 
+				id="seldate" 
+				name="seldate" 
+				ng-model="$root.seldate" 
+				placeholder="platí od">
+			<select class="col-md-4" ng-options="o.id as o.lgname for o in menutypes" ng-model="selmenutype"></select>
+		</small>
+	</div>
+	<div class="input-group col-xs-3">
+		<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+		<input type="text" class="form-control input-sm" data-ng-model="search" class="search-query" placeholder="Vyhľadať...">
+	</div>
+</h1>
+
+</div>
+
+<table class="table" data-ng-init="predicate='code'; reverse=false">
+<thead>
+	<tr>
+		<th class="col-md-1"><a href="" data-ng-click="predicate='code'; reverse=!reverse">Kód</a></th>
+		<th class="col-md-1">Množstvo</th>
+		<th class="col-md-8"><a href="" data-ng-click="predicate='lgname'; reverse=!reverse">Názov</a></th>
+		<th class="col-md-1">Cena</th>
+	</tr>
+</thead>
+<tbody>
+	<tr data-ng-repeat="item in items | filter:search |  orderBy:predicate:reverse">
+<!-- 			<td class="col-md-1"><img ng-src="../api/index.php/picture/{{item.idmedia}}/small" alt="picture"></td> -->
+			<td class="col-md-1">{{item.code}}</td>
+			<td>
+				<span ng-repeat="itm in item.servings" repeat-Delimiter=",">{{itm.shname}}</span>
+			</td>
+			<td><b>{{item.lgname}}</b><br/>
+			<span ng-repeat="itm in item.ingredients" repeat-Delimiter=",">{{itm.shname}}</span>
+			<td class="col-md-2">
+				<div ng-repeat="itm in item.servings">
+					<strong>{{itm.price | mena}}</strong> <small ng-if="$first!=$last"><small>({{itm.shname}})</small></small>
+				</div>
+			</td>
+			<td class="col-md-1">
+				<div class="btn-group pull-right" role="group" aria-label="Operácie">
+					<button ng-click="openPriceDlg(item)" class="btn btn-default" tooltip="Ceny porcií a množstiev"><i class="glyphicon glyphicon-euro"></i></button>
+				</div>
+			</td>
+		</td>
+	</tr>
+</tbody>
+</table>
+</div>
+
+
+<script type="text/ng-template" id="SelectPriceListDlg.html">
+	<div class="modal-header">
+		<big>Ceny pre porcie/množstievá jedál</big><br/>
+	</div>
+	<div class="modal-body">
+			<div class="input-group col-md-8" ng-repeat="item in items">
+				<span class="input-group-addon" id="price_{{item.id}}_lbl">{{ item.shname }}</span>
+				<input type="number" class="form-control" 
+					id="price_{{item.id}}" 
+					name="price_{{item.id}}" 
+					ng-model="item.price"
+					placeholder="cena jedla">
+
+				<span class="input-group-addon" id="price_{{item.id}}_lbl2">od</span>
+				<input type="text" 
+					datepicker-popup="dd.MM.yyyy" data-date-format="yyyy-mm-dd"
+ 					ng-focus="openedCalendars['from_{{item.id}}']=true;openCalendar('from_{{item.id}}',$event)" 
+					is-open="openedCalendars['from_{{item.id}}']" show-weeks="false" datepicker-options="dateOptions" 
+					class="form-control" 
+					id="from_{{item.id}}" 
+					name="from_{{item.id}}" 
+					ng-model="item.from" 
+					placeholder="platí od">
+
+				<div class="input-group-btn">
+					<button ng-click="savePriceDate(item)" class="btn btn-default" tooltip="Porcie a množstvá"><i class="glyphicon glyphicon-floppy-disk"></i></button>
+					<button ng-click="newPriceDate(item)" class="btn btn-default" tooltip="Kategórie"><i class="glyphicon glyphicon-plus"></i></button>
+					<button ng-click="deletePriceDate(item)" class="btn btn-default" tooltip="Kategórie"><i class="glyphicon glyphicon-trash"></i></button>
+				</div>
+				<div class="input-group-btn" style="width:10px;">
+				</div>
+			</div>
+
+	<div></div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-default" ng-click="showPrices()">Všetky ceny</button>
+		<button class="btn btn-default" ng-click="cancel()">Zatvoriť</button>
+	</div>
+</scri
+</div>

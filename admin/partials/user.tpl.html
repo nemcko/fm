@@ -1,0 +1,39 @@
+<div class="row">
+	<div class="col-md-2">
+		<div data-ng-include="'partials/menucfg.tpl.html'"></div>
+	</div>
+	<div class="col-md-10">
+		<h2>Používateľ <small> <span ng-hide="item.id">nový</span></small></h2>
+		<form class="form-horizontal"  role="form-inline" name="myForm">
+			<div class="form-group">
+				<label for="username" class="col-sm-2 control-label">Používateľ</label>
+				<div class="col-sm-4" ng-class="{error: myForm.username.$invalid && !myForm.username.$pristine}">
+					<input type="text" class="form-control" id="username" name="username" ng-model="item.username" 
+					required placeholder="prihlasovacie meno" ng-readonly="item.id">
+					<span ng-show="myForm.username.$error.required && !myForm.username.$pristine" class="help-inline">
+					Je potrebné vyplniť {{myForm.name.$pristine}}</span>
+				</div>
+			</div>		<div class="form-group">
+				<label for="userpwd" class="col-sm-2 control-label">Heslo</label>
+				<div class="col-sm-3">
+					<input type="text" ng-show="false" id="userpwd" name="userpwd" ng-model="item.userpwd">
+					<input type="password" class="form-control" ng-model="item.userpwd"
+					placeholder="prihlasovacie heslo">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="userdesc" class="col-sm-2 control-label">Popis</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" id="userdesc" name="userdesc" ng-model="item.userdesc"
+					placeholder="popis používateľa">
+				</div>
+			</div>
+
+
+			<hr/>
+			<button ng-click="cancelUpdate()" class="btn btn-default">Návrat</button>
+			<button ng-click="save();" ng-disabled="myForm.$invalid" class="btn btn-primary">Uložiť</button>
+			<button ng-click="destroy()" ng-show="item.id" class="btn btn-danger">Vymazať</button>
+		</form>		
+	</div>
+</div>
